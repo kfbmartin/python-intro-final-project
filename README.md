@@ -4,13 +4,13 @@ A brief one- or two-sentence description of what this program does.
 
 ## API
 
-This project uses the [API Name](https://api-url-here.com) API.
+This project uses the [API Name](https://api.restcountries.com/countries/v5) API.
 
 ## Installation
 
 1. Clone this repository:
    ```bash
-   git clone https://github.com/your-username/python-intro-final-project.git
+   git clone https://github.com/kfbmartin/python-intro-final-project.git
    cd python-intro-final-project
    ```
 
