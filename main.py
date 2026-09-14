@@ -107,7 +107,6 @@ def main():
         }
 
     countries = fetch_countries(params)
-    print(countries)
 
     if not countries:
         return
