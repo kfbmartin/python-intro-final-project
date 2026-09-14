@@ -117,31 +117,40 @@ def main():
         result = show_menu()
         if result == "1":
             search_term = input("Please enter the country you want information on: ")
+            print("")
 
             #Search for matching countries
             matching_countries = search_countries(cleaned_countries, search_term)
 
-            #Sort countries by population
-            sorted_search_countries = sorted(
-                matching_countries, key=lambda country: country["population"], reverse=True
-            )
+            if not matching_countries:
+                print("No matching countries found.")
 
-            for country in sorted_search_countries:
-                print(f"{country['name']} - Capital: {country['capital']} | Region: {country['region']} | Population: {country['population']} ")              
+            else:
+                #Sort countries by population
+                sorted_search_countries = sorted(
+                    matching_countries, key=lambda country: country["population"], reverse=True
+                )
+
+                for country in sorted_search_countries:
+                    print(f"{country['name']} - Capital: {country['capital']} | Region: {country['region']} | Population: {country['population']} ")              
 
         elif result == "2":
             region_name = input("Please enter the region name: ")
 
             region_countries = search_region(cleaned_countries, region_name)
 
-            #Sort countries by population
-            sorted_cleaned_countries = sorted(
-                region_countries, key=lambda country: country["population"],
-                reverse=True
-            )
+            if not region_countries:
+                print("No countries found in that region.")
 
-            for country in sorted_cleaned_countries:
-                print(f"Country: {country['name']} | Capital: {country['capital']} | Region: {country['region']} | Population: {country['population']} ") 
+            else:
+                #Sort countries by population
+                sorted_cleaned_countries = sorted(
+                    region_countries, key=lambda country: country["population"],
+                    reverse=True
+                )
+
+                for country in sorted_cleaned_countries:
+                    print(f"Country: {country['name']} | Capital: {country['capital']} | Region: {country['region']} | Population: {country['population']} ") 
 
         elif result == "3":
             print("")
@@ -163,26 +172,31 @@ def main():
 
             currencies_countries = search_currencies(cleaned_countries, currency_name)
 
-            #Sort countries by population
-            sorted_cleaned_countries = sorted(
-                currencies_countries, key=lambda country: country["name"]
-            )
+            if not currencies_countries:
+                print("No countries found using that currency")
 
-            for country in sorted_cleaned_countries:
-                currency_list =[]
-                other_currencies = []
+            else:
 
-                for currency in country["currencies"]:
-                    currency_info = f"{currency['name']} ({currency['code']}) {currency["symbol"]}"
+                #Sort countries by population
+                sorted_cleaned_countries = sorted(
+                    currencies_countries, key=lambda country: country["name"]
+                )
 
-                    if(currency_name.lower() == currency['name'].lower() or currency_name.lower() == currency["code"].lower()):
-                        currency_list.append(currency_info)
-                    else:
-                        other_currencies.append(currency_info)
+                for country in sorted_cleaned_countries:
+                    currency_list =[]
+                    other_currencies = []
 
-                currency_list.extend(other_currencies)
-                currencies_display = ", ".join(currency_list)
-                print(f"{country['name']} | Currencies: {currencies_display}")            
+                    for currency in country["currencies"]:
+                        currency_info = f"{currency['name']} ({currency['code']}) {currency['symbol']}"
+
+                        if(currency_name.lower() == currency['name'].lower() or currency_name.lower() == currency['code'].lower()):
+                            currency_list.append(currency_info)
+                        else:
+                            other_currencies.append(currency_info)
+
+                    currency_list.extend(other_currencies)
+                    currencies_display = ", ".join(currency_list)
+                    print(f"{country['name']} | Currencies: {currencies_display}")            
 
         elif result == "4":
             quit_loop()
