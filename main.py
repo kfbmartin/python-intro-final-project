@@ -99,3 +99,97 @@ def show_menu():
 def quit_loop():
     print("Quit Country Explorer")
     
+def main():
+
+    params = {
+            "response_fields": "names.common, capitals, government_type, continents, region, subregion, memberships, population, currencies, languages",
+            "limit":100,
+        }
+
+    countries = fetch_countries(params)
+    print(countries)
+
+    if not countries:
+        return
+
+    cleaned_countries = clean_countries(countries["data"]["objects"])
+
+    while True: 
+        result = show_menu()
+        if result == "1":
+            search_term = input("Please enter the country you want information on: ")
+
+            #Search for matching countries
+            matching_countries = search_countries(cleaned_countries, search_term)
+
+            #Sort countries by population
+            sorted_search_countries = sorted(
+                matching_countries, key=lambda country: country["population"], reverse=True
+            )
+
+            for country in sorted_search_countries:
+                print(f"{country['name']} - Capital: {country['capital']} | Region: {country['region']} | Population: {country['population']} ")              
+
+        elif result == "2":
+            region_name = input("Please enter the region name: ")
+
+            region_countries = search_region(cleaned_countries, region_name)
+
+            #Sort countries by population
+            sorted_cleaned_countries = sorted(
+                region_countries, key=lambda country: country["population"],
+                reverse=True
+            )
+
+            for country in sorted_cleaned_countries:
+                print(f"Country: {country['name']} | Capital: {country['capital']} | Region: {country['region']} | Population: {country['population']} ") 
+
+        elif result == "3":
+            print("")
+            print("Top 10 Currencies in the World:")
+            print("USD - United States Dollar")
+            print("EUR - Euro")
+            print("JPY - Japanese Yen")
+            print("GBP - British Pound Sterling")
+            print("CNY - Chinese Yuan")
+            print("CHF - Swiss Franc")
+            print("CAD - Canadian Dollar")
+            print("AUD - Australian Dollar")
+            print("INR - Indian Rupee")
+            print("SGD - Singapore Dollar")
+            print("")
+
+            currency_name = input("Enter a currency name or code from the list above: ")
+            print("")
+
+            currencies_countries = search_currencies(cleaned_countries, currency_name)
+
+            #Sort countries by population
+            sorted_cleaned_countries = sorted(
+                currencies_countries, key=lambda country: country["name"]
+            )
+
+            for country in sorted_cleaned_countries:
+                currency_list =[]
+                other_currencies = []
+
+                for currency in country["currencies"]:
+                    currency_info = f"{currency['name']} ({currency['code']}) {currency["symbol"]}"
+
+                    if(currency_name.lower() == currency['name'].lower() or currency_name.lower() == currency["code"].lower()):
+                        currency_list.append(currency_info)
+                    else:
+                        other_currencies.append(currency_info)
+
+                currency_list.extend(other_currencies)
+                currencies_display = ", ".join(currency_list)
+                print(f"{country['name']} | Currencies: {currencies_display}")            
+
+        elif result == "4":
+            quit_loop()
+            break
+
+        else:
+            print("Please enter a number between 1 and 4.")
+
+main()
