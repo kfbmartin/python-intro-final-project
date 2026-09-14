@@ -48,3 +48,54 @@ def clean_countries(countries_list):
 
     return cleaned
 
+#Search for countries information
+def search_countries(countries, search_term):            
+    search_countries = []
+
+    for country in countries:
+        if search_term.lower() in country["name"].lower():
+            search_countries.append(country)
+    return search_countries
+
+#Search for countries by region
+def search_region(countries, region):
+    region_countries = []
+
+    #Find countries that match the search region
+    for country in countries:
+        if country["region"].lower() == region.lower():
+            region_countries.append(country)
+
+    return region_countries
+
+#Search for currencies per country
+def search_currencies(countries, currency):
+    currencies_countries =[]
+
+    #Find the currencies used by countries
+    for country in countries:
+        for country_currency in country["currencies"]:
+            if (currency.lower() == country_currency["name"].lower() or currency.lower() == country_currency["code"].lower()):
+
+                currencies_countries.append(country)
+                break
+
+    return currencies_countries
+
+#Print Country Explorer Menu
+def show_menu():
+    print("")
+    print("=== Country Explorer ===")
+    print("1. Search by name")
+    print("2. Filter by region")
+    print("3. Search by currency")
+    print("4. Quit")
+    print("")
+
+    option = input("Choose an option (1-4):")
+    return option
+
+#Quit Country Explorer Loop
+def quit_loop():
+    print("Quit Country Explorer")
+    
