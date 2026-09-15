@@ -1,5 +1,4 @@
 import requests
-import json
 import os
 import matplotlib.pyplot as plt
 
@@ -103,7 +102,7 @@ def create_population_chart(countries):
 
     plt.xlabel("Population (Millions)")
     plt.ylabel("Country")
-    plt.title("Top 10 Most Populous Countries")
+    plt.title("10 Most Populous Countries in the Dataset")
     plt.tight_layout()
     plt.savefig("top_10_population.png")
     plt.show()
@@ -234,6 +233,6 @@ def main():
             break
 
         else:
-            print("Please enter a number between 1 and 4.")
+            print("Please enter a number between 1 and 5.")
 
 main()
