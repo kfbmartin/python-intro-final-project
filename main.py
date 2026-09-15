@@ -116,7 +116,7 @@ def main():
     while True: 
         result = show_menu()
         if result == "1":
-            search_term = input("Please enter the country you want information on: ")
+            search_term = input("Please enter the country you want information on: ").strip()
             print("")
 
             #Search for matching countries
@@ -135,7 +135,7 @@ def main():
                     print(f"{country['name']} - Capital: {country['capital']} | Region: {country['region']} | Population: {country['population']} ")              
 
         elif result == "2":
-            region_name = input("Please enter the region name: ")
+            region_name = input("Please enter the region name: ").strip()
 
             region_countries = search_region(cleaned_countries, region_name)
 
@@ -167,7 +167,7 @@ def main():
             print("SGD - Singapore Dollar")
             print("")
 
-            currency_name = input("Enter a currency name or code from the list above: ")
+            currency_name = input("Enter a currency name or code from the list above: ").strip()
             print("")
 
             currencies_countries = search_currencies(cleaned_countries, currency_name)
