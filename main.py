@@ -1,6 +1,8 @@
 import requests
 import json
 import os
+import matplotlib.pyplot as plt
+
 from dotenv import load_dotenv
 
 load_dotenv()
@@ -82,6 +84,30 @@ def search_currencies(countries, currency):
 
     return currencies_countries
 
+#matplotlib function
+def create_population_chart(countries):
+
+    sorted_countries = sorted(countries, key=lambda country: country["population"], reverse=True)
+
+    top_10_countries = sorted_countries[:10]
+
+    country_names = []
+    populations = []
+
+    for country in top_10_countries:
+        country_names.append(country["name"])
+        populations.append(country["population"] / 1000000)
+
+    plt.barh(country_names, populations)
+    plt.gca().invert_yaxis()
+
+    plt.xlabel("Population (Millions)")
+    plt.ylabel("Country")
+    plt.title("Top 10 Most Populous Countries")
+    plt.tight_layout()
+    plt.savefig("top_10_population.png")
+    plt.show()
+
 #Print Country Explorer Menu
 def show_menu():
     print("")
@@ -89,10 +115,11 @@ def show_menu():
     print("1. Search by name")
     print("2. Filter by region")
     print("3. Search by currency")
-    print("4. Quit")
+    print("4. View population chart")
+    print("5. Quit")
     print("")
 
-    option = input("Choose an option (1-4):")
+    option = input("Choose an option (1-5):")
     return option
 
 #Quit Country Explorer Loop
@@ -112,6 +139,7 @@ def main():
         return
 
     cleaned_countries = clean_countries(countries["data"]["objects"])
+
 
     while True: 
         result = show_menu()
@@ -199,6 +227,9 @@ def main():
                     print(f"{country['name']} | Currencies: {currencies_display}")            
 
         elif result == "4":
+            create_population_chart(cleaned_countries)
+
+        elif result == "5":
             quit_loop()
             break
 
