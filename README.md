@@ -56,3 +56,4 @@ The chart compares the population of each country and makes it easy to see the d
 I chose a horizontal bar chart because it makes it easy to compare population values while keeping the country names readable. The chart is labeled with the country and population, has a descriptive title, and is saved as a PNG file.
 
 ## Video Demo Link
+https://www.loom.com/share/dfe70464178a48789fe4d3aeced1db6b
