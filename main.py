@@ -177,7 +177,7 @@ def main():
                 )
 
                 for country in sorted_cleaned_countries:
-                    print(f"Country: {country['name']} | Capital: {country['capital']} | Region: {country['region']} | Population: {country['population']} ") 
+                    print(f"{country['name']} | Capital: {country['capital']} | Region: {country['region']} | Population: {country['population']} ") 
 
         elif result == "3":
             print("")
